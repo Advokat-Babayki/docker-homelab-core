@@ -1,0 +1,10 @@
+# secrets
+*.env
+secrets/*
+
+# runtime data
+data/*/backup*
+
+# local state
+.venv/
+__pycache__/
