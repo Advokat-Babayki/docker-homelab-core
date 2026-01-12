@@ -23,6 +23,14 @@ providers:
     filename: /etc/traefik/dynamic.yml
     watch: true
 
+certificatesResolvers:
+  letsencrypt:
+    acme:
+      email: ${ACME_EMAIL}
+      storage: /etc/traefik/certs/acme.json
+      httpChallenge:
+        entryPoint: web
+
 api:
   dashboard: true
   insecure: true
