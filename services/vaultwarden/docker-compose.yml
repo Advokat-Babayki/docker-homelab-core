@@ -1,0 +1,11 @@
+services:
+  vaultwarden:
+    image: vaultwarden/server
+    restart: unless-stopped
+    networks:
+      - backend
+    volumes:
+      - ./data/vaultwarden:/data
+    environment:
+      DOMAIN: "https://vault.${DOMAIN}"
+      SIGNUPS_ALLOWED: "false"
