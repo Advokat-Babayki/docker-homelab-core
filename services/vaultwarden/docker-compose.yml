@@ -1,6 +1,6 @@
 services:
   vaultwarden:
-    image: vaultwarden/server
+    image: vaultwarden/server:1.32.3
     restart: unless-stopped
     networks:
       - backend
@@ -9,3 +9,8 @@ services:
     environment:
       DOMAIN: "https://vault.${DOMAIN}"
       SIGNUPS_ALLOWED: "false"
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.vault.rule=Host(`vault.${DOMAIN}`)"
+      - "traefik.http.routers.vault.tls.certresolver=letsencrypt"
+      - "traefik.http.services.vault.loadbalancer.server.port=80"
