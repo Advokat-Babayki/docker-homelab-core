@@ -24,3 +24,5 @@ services:
       PEERS: 2
       INTERNAL_SUBNET: 10.13.13.0
       ALLOWEDIPS: "0.0.0.0/0"
+      DNS1: 172.20.0.10
+      DNS2: 1.1.1.1
