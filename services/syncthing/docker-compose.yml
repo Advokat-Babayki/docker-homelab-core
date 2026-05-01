@@ -1,0 +1,18 @@
+services:
+  syncthing:
+    image: linuxserver/syncthing:1.27.12
+    restart: unless-stopped
+    networks:
+      - backend
+    volumes:
+      - ./data/syncthing/config:/config
+      - ./data/syncthing/data:/data
+    environment:
+      PUID: ${ST_UID}
+      PGID: ${ST_GID}
+      TZ: ${TZ}
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.syncthing.rule=Host(`sync.${DOMAIN}`)"
+      - "traefik.http.routers.syncthing.tls.certresolver=letsencrypt"
+      - "traefik.http.services.syncthing.loadbalancer.server.port=8384"
