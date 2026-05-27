@@ -10,4 +10,7 @@ mkdir -p "${BACKUP_DIR}"
 docker compose exec -T vaultwarden /vaultwarden backup >/dev/null 2>&1 || true
 docker cp "$(docker compose ps -q vaultwarden)":/data "${BACKUP_DIR}/vaultwarden" || true
 
+# rotate: keep last 14 daily backups
+find "data/backups" -maxdepth 1 -type d -mtime +14 -exec rm -rf {} +
+
 echo "backup completed to ${BACKUP_DIR}"
