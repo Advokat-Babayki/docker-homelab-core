@@ -1,0 +1,7 @@
+services:
+  traefik:
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://localhost:8080/api/rawdata"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
