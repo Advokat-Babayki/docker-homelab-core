@@ -4,7 +4,11 @@ secrets/*
 
 # runtime data
 data/*/backup*
+!data/*/.gitkeep
 
 # local state
 .venv/
 __pycache__/
+
+# generated guest logs
+*.journal
