@@ -16,24 +16,20 @@ single Traefik reverse proxy with automatic LetsEncrypt certificates.
 | WireGuard | secure remote access | 51820/udp |
 | Syncthing | device synchronization | sync. |
 
-## Networks
+## Architecture
 
-- `frontend` - public-facing proxies and endpoints
-- `backend` - internal services with no direct exposure
-- `wireguard` - tunnel network for remote peers
+Requests enter through Traefik on `frontend`. Public services attach
+Traefik labels for routing and LetsEncrypt. Internal services stay on
+`backend` and are only reachable over the tunnel or by the proxy.
+
+WireGuard peers receive `10.13.13.x` addresses and route all traffic
+back to the homelab DNS resolver (AdGuard).
 
 ## Quickstart
 
 ```bash
 cp .env.example .env
 docker compose up -d
-```
-
-## Backup and restore
-
-```bash
-./scripts/backup.sh          # snapshot stacks, rotate daily copies
-./scripts/restart.sh         # pull and recreate the whole stack
 ```
 
 ## Layout
