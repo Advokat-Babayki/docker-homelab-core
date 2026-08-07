@@ -11,6 +11,9 @@ networks:
     ipam:
       config:
         - subnet: 172.21.0.0/24
+  wireguard:
+    driver: bridge
+    internal: false
 
 services:
   traefik:
@@ -31,3 +34,8 @@ services:
       - "traefik.http.routers.dashboard.rule=Host(`traefik.${DOMAIN}`)"
       - "traefik.http.routers.dashboard.service=api@internal"
       - "traefik.http.routers.dashboard.middlewares=local-ip@file"
+    healthcheck:
+      test: ["CMD", "wget", "-q", "-O", "/dev/null", "http://localhost:8080/api/rawdata"]
+      interval: 30s
+      timeout: 3s
+      retries: 3
